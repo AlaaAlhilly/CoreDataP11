@@ -7,21 +7,29 @@
 //
 
 #import "ViewController.h"
+#import "Students+Add.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet UITextField *lastnameField;
+@property (weak, nonatomic) IBOutlet UITextField *studentIdField;
+@property (weak, nonatomic) IBOutlet UITextView *outPutTextView;
 
 @end
 
 @implementation ViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+- (IBAction)searchName:(UIButton *)sender
+{
+    self.outPutTextView.text = [Students searchStudentByName:self.nameField.text lastname:self.lastnameField.text].description;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)addToDatabase:(UIButton *)sender
+{
+    NSDictionary *studentInfo = @{@"name": self.nameField.text,
+                                  @"lastName": self.lastnameField.text,
+                                  @"studentId": self.studentIdField.text};
+    
+    self.outPutTextView.text = [Students addStudentInfoFromDictionary:studentInfo].description;
 }
 
 @end
